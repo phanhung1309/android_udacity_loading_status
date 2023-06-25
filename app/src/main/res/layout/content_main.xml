@@ -10,6 +10,7 @@
     tools:showIn="@layout/activity_main">
 
     <RadioGroup
+        android:id="@+id/download_radio_group"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -36,7 +37,7 @@
             android:text="@string/radio_load_app" />
 
         <RadioButton
-            android:id="@+id/radioButton3"
+            android:id="@+id/radio_retrofit"
             style="@style/TextAppearance.MaterialComponents.Subtitle2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
