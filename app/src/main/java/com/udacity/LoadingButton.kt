@@ -6,17 +6,20 @@ import android.animation.ValueAnimator
 import android.content.Context
 import android.graphics.*
 import android.util.AttributeSet
+import android.util.Log
 import android.view.View
 import androidx.core.content.ContextCompat
 import androidx.core.content.withStyledAttributes
 import kotlin.properties.Delegates
+
+private const val TAG = "LoadingButton"
 
 class LoadingButton @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
 ) : View(context, attrs, defStyleAttr) {
     private var widthSize = 0
     private var heightSize = 0
-    private var textSize = 0f
+    private var textSize = resources.getDimension(R.dimen.default_text_size)
     private var textWidth = 0f
     private var circleXOffset = textSize / 2
 
@@ -45,7 +48,7 @@ class LoadingButton @JvmOverloads constructor(
                 valueAnimator.setDuration(3000)
                 valueAnimator.addUpdateListener { animation ->
                     progressWidth = animation.animatedValue as Float
-                    progressCircle = (widthSize.toFloat() / 365) * progressWidth
+                    progressCircle = (widthSize.toFloat() / 360) * progressWidth
                     invalidate()
                 }
 
@@ -99,7 +102,7 @@ class LoadingButton @JvmOverloads constructor(
         save()
         translate(widthSize / 2 + textWidth / 2 + circleXOffset, heightSize / 2 - textSize / 2)
         paint.color = loadingCircleColor
-        drawArc(RectF(0f, 0f, textSize, textSize), 0F, progressCircle * 0.365f, true, paint)
+        drawArc(RectF(0f, 0f, textSize, textSize), 0F, progressCircle * 0.360f, true, paint)
         restore()
     }
 
@@ -137,6 +140,14 @@ class LoadingButton @JvmOverloads constructor(
         widthSize = w
         heightSize = h
         setMeasuredDimension(w, h)
+    }
+
+    fun onChangeButtonState(state: ButtonState) {
+        Log.d(TAG, "changeButtonState: $state")
+        if (buttonState != state) {
+            buttonState = state
+            requestLayout()
+        }
     }
 
 }
