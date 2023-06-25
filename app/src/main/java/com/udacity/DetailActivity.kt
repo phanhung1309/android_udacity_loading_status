@@ -1,5 +1,6 @@
 package com.udacity
 
+import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
@@ -27,6 +28,10 @@ class DetailActivity : AppCompatActivity() {
                 "Success" -> binding.contentDetail.statusText.setTextColor(Color.GREEN)
                 else -> binding.contentDetail.statusText.setTextColor(Color.BLACK)
             }
+        }
+
+        binding.contentDetail.okButton.setOnClickListener {
+            startActivity(Intent(this, MainActivity::class.java))
         }
     }
 }
